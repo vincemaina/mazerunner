@@ -106,17 +106,15 @@ export function Player(props: Props) {
         )
     }
 
-    if (hasWon) {
-        return (
-            <div className="absolute inset-0 flex items-center justify-center z-10">
-                <h1 className="text-4xl font-bold text-black">Level Complete</h1>
-            </div>
-        );
-    }
-
     return (
         <>
-            <pre className="absolute bottom-0 left-0">{JSON.stringify({
+            {hasWon &&
+                <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <h1 className="text-4xl font-bold text-black">Level Complete</h1>
+                </div>
+            }
+
+            <pre className="absolute -bottom-10 left-0">{JSON.stringify({
                 currentPosition,
                 numberOfMoves
             })}</pre>
