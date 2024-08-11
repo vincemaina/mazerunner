@@ -1,6 +1,6 @@
-type CellType = "start" | "end" | "wall" | "empty";
+import { Coordinates } from "./maze";
 
-type Coordinates = { x: number; y: number };
+type CellType = "start" | "end" | "wall" | "empty";
 
 function getCellType(coords: Coordinates, mazeSize: number): CellType {
     if (Math.floor(mazeSize / 2) === coords.x && Math.floor(mazeSize / 2) === coords.y) {
