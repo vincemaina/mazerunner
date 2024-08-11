@@ -2,9 +2,9 @@ import { Coordinates, ObjectMap } from "@/components/maze";
 import { $currentPosition, $solution } from "@/components/player";
 import { $visitedCells } from "@/components/player";
 
+const DELAY = 20;
+
 export async function depthFirstSearch(mazeSize: number, objectMap: ObjectMap, previousPosition?: Coordinates) {
-
-
     let neighbors;
     while ((neighbors = getNeighbors(mazeSize, objectMap)).length > 0) {
         const nextPosition = neighbors[0];
@@ -12,12 +12,12 @@ export async function depthFirstSearch(mazeSize: number, objectMap: ObjectMap, p
         $currentPosition.set(nextPosition);
         $visitedCells.set([...$visitedCells.get(), nextPosition]);
         $solution.set([...$solution.get(), nextPosition]);
-        await new Promise((resolve) => setTimeout(resolve, 10));
+        await new Promise((resolve) => setTimeout(resolve, DELAY));
         await depthFirstSearch(mazeSize, objectMap, currentPosition);
     }
 
     if (previousPosition) {
-        await new Promise((resolve) => setTimeout(resolve, 10));
+        await new Promise((resolve) => setTimeout(resolve, DELAY));
         $currentPosition.set(previousPosition);
         $solution.set($solution.get().slice(0, -1));
     }

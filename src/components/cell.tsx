@@ -13,7 +13,7 @@ export function Cell(props: Props) {
     return (
         <div
             className={`
-                aspect-square flex justify-center items-center text-xs
+                aspect-square flex justify-center items-center text-xs transition-all
                 ${props.type === "wall" ? "bg-neutral-500"
                     : props.type === "door" ? "bg-sky-500"
                     : props.isSolution ? "bg-green-400"

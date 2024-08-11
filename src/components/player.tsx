@@ -127,7 +127,7 @@ export function Player(props: Props) {
             })}</pre>
 
             <div className="absolute inset-0">
-                <div className="bg-red-500 aspect-square rounded-full relative w-10"
+                <div className="bg-red-500 aspect-square rounded-full relative w-10 transition-all duration-75"
                     style={{top: currentPosition.y * cellSize, left: currentPosition.x * cellSize, width: playerSize}}
                 />
             </div>
