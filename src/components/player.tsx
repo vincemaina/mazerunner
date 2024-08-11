@@ -116,8 +116,11 @@ export function Player(props: Props) {
     return (
         <>
             {hasWon &&
-                <div className="absolute inset-0 flex items-center justify-center z-10">
+                <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
                     <h1 className="text-4xl font-bold text-black">Level Complete</h1>
+                    <p className="text-lg font-bold text-black">
+                        Efficiency: {($solution.get().length / $numberOfMoves.get()) * 100}%
+                    </p>
                 </div>
             }
 
