@@ -23,7 +23,6 @@ export function Cell(props: Props) {
         <div
             className={`
                 aspect-square border-b border-r flex justify-center items-center text-xs
-                ${type === "start" ? "bg-green-500" : ""}
             `}
             style={{width: "1fr"}}
         />

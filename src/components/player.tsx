@@ -8,11 +8,6 @@ import { useStore } from "@nanostores/react";
 export const $currentPosition = map<Coordinates>({ x: -1, y: -1 });
 export const $numberOfMoves = atom<number>(0);
 
-$currentPosition.listen((value) => {
-    console.log('currentPosition:', value);
-    $numberOfMoves.set($numberOfMoves.get() + 1);
-});
-
 interface Props {
     mazeSize: number;
     mazeWidth: number;
@@ -26,6 +21,11 @@ export function Player(props: Props) {
     useEffect(() => {
         const mazeCenter = getMazeCenter(props.mazeSize);
         $currentPosition.set(mazeCenter);
+
+        $currentPosition.listen((value) => {
+            console.log('currentPosition:', value);
+            $numberOfMoves.set($numberOfMoves.get() + 1);
+        });
 
         if (typeof window !== 'undefined') {
             window.addEventListener('keydown', (event) => {
