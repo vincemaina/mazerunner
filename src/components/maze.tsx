@@ -20,6 +20,7 @@ interface Props {
     width: number;
     objects: ObjectMap;
     isPlayable?: boolean;
+    isComputer?: boolean;
 }
 
 export function Maze(props: Props) {
@@ -31,7 +32,7 @@ export function Maze(props: Props) {
             />
             <Grid size={props.size} objects={props.objects} />
             {props.isPlayable &&
-                <Player mazeSize={props.size} mazeWidth={props.width} objects={props.objects} />
+                <Player mazeSize={props.size} mazeWidth={props.width} objects={props.objects} isComputer={props.isComputer} />
             }
         </div>
     );

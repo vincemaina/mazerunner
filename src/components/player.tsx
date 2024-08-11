@@ -33,6 +33,7 @@ interface Props {
     mazeSize: number;
     mazeWidth: number;
     objects: ObjectMap;
+    isComputer?: boolean;
 }
 
 export function Player(props: Props) {
@@ -50,7 +51,7 @@ export function Player(props: Props) {
             $numberOfMoves.set($numberOfMoves.get() + 1);
         });
 
-        if (typeof window !== 'undefined') {
+        if (!props.isComputer && typeof window !== 'undefined') {
             window.addEventListener('keydown', (event) => {
                 switch (event.key) {
                     case 'ArrowUp':
@@ -88,7 +89,7 @@ export function Player(props: Props) {
         }
 
         return () => {
-            if (typeof window !== 'undefined') {
+            if (!props.isComputer && typeof window !== 'undefined') {
                 window.removeEventListener('keydown', () => {});
             };
         };
