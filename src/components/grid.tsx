@@ -3,7 +3,7 @@
 import { useStore } from "@nanostores/react";
 import { Cell } from "./cell";
 import { ObjectMap } from "./maze";
-import { $visitedCells } from "./player";
+import { $solution, $visitedCells } from "./player";
 
 interface Props {
     size: number;
@@ -13,6 +13,7 @@ interface Props {
 export function Grid(props: Props) {
 
     const visited = useStore($visitedCells);
+    const solution = useStore($solution);
 
     return (
         <div className="w-full">
@@ -22,6 +23,7 @@ export function Grid(props: Props) {
                     const j = index % props.size;
                     const type = props.objects[i]?.[j];
                     const isVisited = !!visited.find(cell => cell.x === j && cell.y === i);
+                    const isSolution = !!solution.find(cell => cell.x === j && cell.y === i);
                     
                     return (
                         <Cell
@@ -30,6 +32,7 @@ export function Grid(props: Props) {
                             mazeSize={props.size}
                             type={type}
                             isVisited={isVisited}
+                            isSolution={isSolution}
                         />
                     );
                 })}

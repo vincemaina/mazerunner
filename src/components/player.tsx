@@ -5,12 +5,14 @@ import { useEffect } from "react";
 import { Coordinates, ObjectMap } from "./maze";
 import { useStore } from "@nanostores/react";
 import { Loader } from "./loader";
+import { depthFirstSearch } from "@/util/maze-solving/depth-first-search";
 
 export const $objectMap = map<ObjectMap>({});
 export const $numberOfMoves = atom<number>(0);
 export const $currentPosition = map<Coordinates>({ x: 1, y: 1 });
 export const $hasWon = atom<boolean>(false);
 export const $visitedCells = atom<Coordinates[]>([{ x: 1, y: 1 }]);
+export const $solution = atom<Coordinates[]>([{ x: 1, y: 1 }]);
 
 function movePlayer({ x = 0, y = 0 }: Coordinates) {
     if ($hasWon.get()) return;
@@ -23,7 +25,6 @@ function movePlayer({ x = 0, y = 0 }: Coordinates) {
     
     console.log('object:', object);
     if (object === "wall") return;
-    if (object === "door") $hasWon.set(true);
 
     $currentPosition.set(newPosition);
     $visitedCells.set([...$visitedCells.get(), newPosition]);
@@ -49,7 +50,13 @@ export function Player(props: Props) {
         $currentPosition.listen((value) => {
             console.log('currentPosition:', value);
             $numberOfMoves.set($numberOfMoves.get() + 1);
+            const object = $objectMap.get()[value.y]?.[value.x];
+            if (object === "door") $hasWon.set(true);
         });
+
+        if (props.isComputer) {
+            depthFirstSearch(props.mazeSize, props.objects);
+        }
 
         if (!props.isComputer && typeof window !== 'undefined') {
             window.addEventListener('keydown', (event) => {
