@@ -27,7 +27,6 @@ function movePlayer({ x = 0, y = 0 }: Coordinates) {
 
     $currentPosition.set(newPosition);
     $visitedCells.set([...$visitedCells.get(), newPosition]);
-    console.log("visitedCells:", $visitedCells.get());
 }
 
 interface Props {

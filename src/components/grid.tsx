@@ -1,5 +1,9 @@
+'use client';
+
+import { useStore } from "@nanostores/react";
 import { Cell } from "./cell";
 import { ObjectMap } from "./maze";
+import { $visitedCells } from "./player";
 
 interface Props {
     size: number;
@@ -7,6 +11,9 @@ interface Props {
 }
 
 export function Grid(props: Props) {
+
+    const visited = useStore($visitedCells);
+
     return (
         <div className="w-full">
             <div className="grid grid-cols-12" style={{gridTemplateColumns: `repeat(${props.size}, minmax(0, 1fr))`}}>
@@ -14,6 +21,7 @@ export function Grid(props: Props) {
                     const i = Math.floor(index / props.size);
                     const j = index % props.size;
                     const type = props.objects[i]?.[j];
+                    const isVisited = !!visited.find(cell => cell.x === j && cell.y === i);
                     
                     return (
                         <Cell
@@ -21,6 +29,7 @@ export function Grid(props: Props) {
                             coordinates={{ x: i, y: j }}
                             mazeSize={props.size}
                             type={type}
+                            isVisited={isVisited}
                         />
                     );
                 })}
