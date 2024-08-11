@@ -19,13 +19,16 @@ interface Props {
     size: number;
     width: number;
     objects: ObjectMap;
+    isPlayable?: boolean;
 }
 
 export function Maze(props: Props) {
     return (
         <div className="bg-white shadow border-t relative" style={{ width: props.width }}>
             <Grid size={props.size} objects={props.objects} />
-            <Player mazeSize={props.size} mazeWidth={props.width} objects={props.objects} />
+            {props.isPlayable &&
+                <Player mazeSize={props.size} mazeWidth={props.width} objects={props.objects} />
+            }
         </div>
     );
 }
