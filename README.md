@@ -9,3 +9,7 @@ Add walls + goal
 Testing out maze generation algorithms
 
 ![alt text](screenshots/demo-3.gif)
+
+Adding visited cells
+
+![alt text](screenshots/demo-4.gif)
