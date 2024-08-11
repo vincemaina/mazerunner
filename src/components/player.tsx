@@ -10,13 +10,13 @@ export const $objectMap = map<ObjectMap>({});
 export const $numberOfMoves = atom<number>(0);
 export const $currentPosition = map<Coordinates>({ x: 1, y: 1 });
 export const $hasWon = atom<boolean>(false);
+export const $visitedCells = atom<Coordinates[]>([]);
 
 function movePlayer({ x = 0, y = 0 }: Coordinates) {
     if ($hasWon.get()) return;
 
     const currentPosition = $currentPosition.get();
     const newPosition = { x: currentPosition.x + x, y: currentPosition.y + y };
-    console.log('newPosition:', newPosition);
     
 
     const object = $objectMap.get()[newPosition.y]?.[newPosition.x];
@@ -26,6 +26,8 @@ function movePlayer({ x = 0, y = 0 }: Coordinates) {
     if (object === "door") $hasWon.set(true);
 
     $currentPosition.set(newPosition);
+    $visitedCells.set([...$visitedCells.get(), newPosition]);
+    console.log("visitedCells:", $visitedCells.get());
 }
 
 interface Props {
