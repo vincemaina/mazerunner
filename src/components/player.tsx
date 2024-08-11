@@ -2,13 +2,13 @@
 
 import { atom, map } from "nanostores";
 import { useEffect } from "react";
-import { Coordinates, getMazeCenter, ObjectMap } from "./maze";
+import { Coordinates, ObjectMap } from "./maze";
 import { useStore } from "@nanostores/react";
 import { Loader } from "./loader";
 
 export const $objectMap = map<ObjectMap>({});
 export const $numberOfMoves = atom<number>(0);
-export const $currentPosition = map<Coordinates>({ x: -1, y: -1 });
+export const $currentPosition = map<Coordinates>({ x: 1, y: 1 });
 export const $hasWon = atom<boolean>(false);
 
 function movePlayer({ x = 0, y = 0 }: Coordinates) {
@@ -43,8 +43,6 @@ export function Player(props: Props) {
     useEffect(() => {
         console.log(props.objects);
         $objectMap.set(props.objects);
-        const mazeCenter = getMazeCenter(props.mazeSize);
-        $currentPosition.set(mazeCenter);
 
         $currentPosition.listen((value) => {
             console.log('currentPosition:', value);
