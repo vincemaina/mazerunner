@@ -2,10 +2,10 @@
 
 import { atom, map } from "nanostores";
 import { useEffect } from "react";
-import { Coordinates } from "./maze";
+import { Coordinates, getMazeCenter } from "./maze";
 import { useStore } from "@nanostores/react";
 
-export const $currentPosition = map<Coordinates>({ x: 0, y: 0 });
+export const $currentPosition = map<Coordinates>({ x: -1, y: -1 });
 export const $numberOfMoves = atom<number>(0);
 
 $currentPosition.listen((value) => {
@@ -24,6 +24,9 @@ export function Player(props: Props) {
     const numberOfMoves = useStore($numberOfMoves);
 
     useEffect(() => {
+        const mazeCenter = getMazeCenter(props.mazeSize);
+        $currentPosition.set(mazeCenter);
+
         if (typeof window !== 'undefined') {
             window.addEventListener('keydown', (event) => {
                 switch (event.key) {
@@ -80,7 +83,7 @@ export function Player(props: Props) {
 
             <div className="absolute inset-0">
                 <div className="bg-red-500 aspect-square rounded-full relative w-10"
-                    style={{top: currentPosition.y * cellSize, left: currentPosition.x * cellSize, width: `${playerSize}px`}}
+                    style={{top: currentPosition.y * cellSize, left: currentPosition.x * cellSize, width: playerSize}}
                 />
             </div>
         </>

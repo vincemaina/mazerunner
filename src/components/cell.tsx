@@ -1,9 +1,10 @@
-import { Coordinates } from "./maze";
+import { Coordinates, getMazeCenter } from "./maze";
 
 type CellType = "start" | "end" | "wall" | "empty";
 
 function getCellType(coords: Coordinates, mazeSize: number): CellType {
-    if (Math.floor(mazeSize / 2) === coords.x && Math.floor(mazeSize / 2) === coords.y) {
+    const mazeCenter = getMazeCenter(mazeSize);
+    if (mazeCenter.x === coords.x && mazeCenter.y === coords.y) {
         return "start";
     }
     return "empty";
