@@ -1,7 +1,9 @@
 import { Cell } from "./cell";
+import { ObjectMap } from "./maze";
 
 interface Props {
     size: number;
+    objects: ObjectMap;
 }
 
 export function Grid(props: Props) {
@@ -11,11 +13,14 @@ export function Grid(props: Props) {
                 {Array.from({ length: props.size * props.size }).map((_, index) => {
                     const i = Math.floor(index / props.size);
                     const j = index % props.size;
+                    const type = props.objects[i]?.[j];
+                    
                     return (
                         <Cell
                             key={`${i}-${j}`}
                             coordinates={{ x: i, y: j }}
                             mazeSize={props.size}
+                            type={type}
                         />
                     );
                 })}
