@@ -33,5 +33,5 @@ body {
 }
 
 h1 {
-  @apply text-4xl font-bold text-center text-balance;
+  @apply text-4xl font-bold text-center text-balance mb-5;
 }
