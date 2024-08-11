@@ -1,6 +1,8 @@
 import { Maze } from "@/components/maze";
 import { aldousBroderMaze } from "@/util/maze-generation/algorithms/aldous-broder";
 
+export const dynamic = 'force-dynamic';
+
 export default function Page() {
 
     const mazeSize = 49;
