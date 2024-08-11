@@ -11,7 +11,7 @@ export function Cell(props: Props) {
         <div
             className={`
                 aspect-square flex justify-center items-center text-xs
-                ${props.type === "wall" ? "bg-gray-500" : props.type === "door" ? "bg-red-200" : "bg-white border-b border-r"}
+                ${props.type === "wall" ? "bg-neutral-500" : props.type === "door" ? "bg-red-200" : ""}
             `}
             style={{width: "1fr"}}
         />
