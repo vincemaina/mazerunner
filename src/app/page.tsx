@@ -5,7 +5,7 @@ export default function Home() {
     <div className="">
       <h1>Pathfinder</h1>
 
-      <Maze size={28}/>
+      <Maze size={23}/>
     </div>
   );
 }
