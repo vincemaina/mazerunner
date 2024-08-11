@@ -10,7 +10,7 @@ export const $objectMap = map<ObjectMap>({});
 export const $numberOfMoves = atom<number>(0);
 export const $currentPosition = map<Coordinates>({ x: 1, y: 1 });
 export const $hasWon = atom<boolean>(false);
-export const $visitedCells = atom<Coordinates[]>([]);
+export const $visitedCells = atom<Coordinates[]>([{ x: 1, y: 1 }]);
 
 function movePlayer({ x = 0, y = 0 }: Coordinates) {
     if ($hasWon.get()) return;
