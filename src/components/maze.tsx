@@ -3,7 +3,7 @@ import { Player } from "./player";
 
 export type Coordinates = { x: number; y: number };
 
-export type Object = "wall" | "door";
+export type Object = "wall" | "door" | "path";
 
 export type ObjectMap = {
     [x: number]: {
