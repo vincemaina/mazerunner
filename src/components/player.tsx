@@ -1,11 +1,17 @@
 'use client';
 
-import { map } from "nanostores";
+import { atom, map } from "nanostores";
 import { useEffect } from "react";
 import { Coordinates } from "./maze";
 import { useStore } from "@nanostores/react";
 
 export const $currentPosition = map<Coordinates>({ x: 0, y: 0 });
+export const $numberOfMoves = atom<number>(0);
+
+$currentPosition.listen((value) => {
+    console.log('currentPosition:', value);
+    $numberOfMoves.set($numberOfMoves.get() + 1);
+});
 
 interface Props {
     mazeSize: number;
@@ -15,6 +21,7 @@ interface Props {
 export function Player(props: Props) {
 
     const currentPosition = useStore($currentPosition);
+    const numberOfMoves = useStore($numberOfMoves);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -66,7 +73,10 @@ export function Player(props: Props) {
 
     return (
         <>
-            <pre className="absolute bottom-0 left-0">{JSON.stringify(currentPosition)}</pre>
+            <pre className="absolute bottom-0 left-0">{JSON.stringify({
+                currentPosition,
+                numberOfMoves
+            })}</pre>
 
             <div className="absolute inset-0">
                 <div className="bg-red-500 aspect-square rounded-full relative w-10"
