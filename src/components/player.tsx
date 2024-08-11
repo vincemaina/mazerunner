@@ -2,24 +2,47 @@
 
 import { atom, map } from "nanostores";
 import { useEffect } from "react";
-import { Coordinates, getMazeCenter } from "./maze";
+import { Coordinates, getMazeCenter, ObjectMap } from "./maze";
 import { useStore } from "@nanostores/react";
 import { Loader } from "./loader";
 
-export const $currentPosition = map<Coordinates>({ x: -1, y: -1 });
+export const $objectMap = map<ObjectMap>({});
 export const $numberOfMoves = atom<number>(0);
+export const $currentPosition = map<Coordinates>({ x: -1, y: -1 });
+export const $hasWon = atom<boolean>(false);
+
+function movePlayer({ x = 0, y = 0 }: Coordinates) {
+    if ($hasWon.get()) return;
+
+    const currentPosition = $currentPosition.get();
+    const newPosition = { x: currentPosition.x + x, y: currentPosition.y + y };
+    console.log('newPosition:', newPosition);
+    
+
+    const object = $objectMap.get()[newPosition.y]?.[newPosition.x];
+    
+    console.log('object:', object);
+    if (object === "wall") return;
+    if (object === "door") $hasWon.set(true);
+
+    $currentPosition.set(newPosition);
+}
 
 interface Props {
     mazeSize: number;
     mazeWidth: number;
+    objects: ObjectMap;
 }
 
 export function Player(props: Props) {
 
     const currentPosition = useStore($currentPosition);
     const numberOfMoves = useStore($numberOfMoves);
+    const hasWon = useStore($hasWon);
 
     useEffect(() => {
+        console.log(props.objects);
+        $objectMap.set(props.objects);
         const mazeCenter = getMazeCenter(props.mazeSize);
         $currentPosition.set(mazeCenter);
 
@@ -36,28 +59,28 @@ export function Player(props: Props) {
                     case 'W':
                         console.log('up');
                         if ($currentPosition.get().y === 0) return;
-                        $currentPosition.setKey("y", $currentPosition.get().y - 1);
+                        movePlayer({ x: 0, y: -1 });
                         break;
                     case 'ArrowDown':
                     case 's':
                     case 'S':
                         console.log('down');
                         if ($currentPosition.get().y >= props.mazeSize - 1) return;
-                        $currentPosition.setKey("y", $currentPosition.get().y + 1);
+                        movePlayer({ x: 0, y: 1 });
                         break;
                     case 'ArrowLeft':
                     case 'a':
                     case 'A':
                         console.log('left');
                         if ($currentPosition.get().x === 0) return;
-                        $currentPosition.setKey("x", $currentPosition.get().x - 1);
+                        movePlayer({ x: -1, y: 0 });
                         break;
                     case 'ArrowRight':
                     case 'd':
                     case 'D':
                         console.log('right');
                         if ($currentPosition.get().x >= props.mazeSize - 1) return;
-                        $currentPosition.setKey("x", $currentPosition.get().x + 1);
+                        movePlayer({ x: 1, y: 0 });
                         break;
                     default:
                         break;
@@ -81,6 +104,14 @@ export function Player(props: Props) {
                 <Loader/>
             </div>
         )
+    }
+
+    if (hasWon) {
+        return (
+            <div className="absolute inset-0 flex items-center justify-center z-10">
+                <h1 className="text-4xl font-bold text-black">Level Complete</h1>
+            </div>
+        );
     }
 
     return (

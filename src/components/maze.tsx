@@ -25,7 +25,7 @@ export function Maze(props: Props) {
     return (
         <div className="bg-white shadow border-t relative overflow-hidden" style={{ width: props.width }}>
             <Grid size={props.size} objects={props.objects} />
-            <Player mazeSize={props.size} mazeWidth={props.width} />
+            <Player mazeSize={props.size} mazeWidth={props.width} objects={props.objects} />
         </div>
     );
 }
