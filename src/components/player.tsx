@@ -4,6 +4,7 @@ import { atom, map } from "nanostores";
 import { useEffect } from "react";
 import { Coordinates, getMazeCenter } from "./maze";
 import { useStore } from "@nanostores/react";
+import { Loader } from "./loader";
 
 export const $currentPosition = map<Coordinates>({ x: -1, y: -1 });
 export const $numberOfMoves = atom<number>(0);
@@ -73,6 +74,14 @@ export function Player(props: Props) {
 
     const playerSize = props.mazeWidth / props.mazeSize;
     const cellSize = props.mazeWidth / props.mazeSize;
+
+    if (currentPosition.x === -1 || currentPosition.y === -1) {
+        return (
+            <div className="absolute inset-0 flex items-center justify-center z-10">
+                <Loader/>
+            </div>
+        )
+    }
 
     return (
         <>
