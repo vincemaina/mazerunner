@@ -17,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="flex min-h-screen flex-col items-center justify-center p-24">
+        <nav className="fixed w-full h-14 top-0 bg-black text-white z-50 flex items-center px-5 gap-5">
+          <a href="/">Start a new game</a>
+        </nav>
+        <main className="flex min-h-screen flex-col items-center justify-center">
           {children}
         </main>
       </body>

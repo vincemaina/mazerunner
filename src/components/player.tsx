@@ -58,9 +58,9 @@ export function Player(props: Props) {
         console.log('hasWon:', hasWon);
         if (props.isComputer) {
             new Promise((resolve) => setTimeout(resolve, 1000))
-                .then(() => window.location.assign(`/${props.mazeSize + 2}`));
+                .then(() => window.location.assign(`/maze/${props.mazeSize + 2}/dfs`));
         } else {
-            window.location.assign(`/${props.mazeSize + 2}/play`);
+            window.location.assign(`/maze/${props.mazeSize + 2}/play`);
         }
     }
 

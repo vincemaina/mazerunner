@@ -1,5 +1,6 @@
 import { Maze } from "@/components/maze";
 import { aldousBroderMaze } from "@/util/maze-generation/algorithms/aldous-broder";
+import Image from "next/image";
 
 export const dynamic = 'force-dynamic';
 
@@ -19,7 +20,12 @@ export default function Page({ params }: { params: { slug: string[] } }) {
     }
 
     return (
-        <div className="flex flex-col gap-2 items-center">
+        <div className="flex flex-col gap-2 items-center justify-center w-full flex-auto relative">
+            <div
+                className="absolute inset-0 z-0"
+                style={{background: 'url(/vine-tile.webp)', backgroundSize: 'contain'}}
+            />
+       
             <Maze
                 size={mazeSize}
                 width={550}
