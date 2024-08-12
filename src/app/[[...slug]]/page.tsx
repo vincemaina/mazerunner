@@ -9,6 +9,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
 
     let mazeSize = params.slug ? parseInt(params.slug[0]) : 63;
     mazeSize % 2 === 0 && mazeSize++;
+    mazeSize = Math.max(5, Math.min(101, mazeSize));
 
     const objects = aldousBroderMaze(mazeSize, mazeSize);
 
