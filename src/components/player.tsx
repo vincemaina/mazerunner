@@ -6,6 +6,7 @@ import { Coordinates, ObjectMap } from "./maze";
 import { useStore } from "@nanostores/react";
 import { Loader } from "./loader";
 import { depthFirstSearch } from "@/util/maze-solving/depth-first-search";
+import { useRouter } from "next/navigation";
 
 export const $objectMap = map<ObjectMap>({});
 export const $numberOfMoves = atom<number>(0);
@@ -13,6 +14,14 @@ export const $currentPosition = map<Coordinates>({ x: 1, y: 1 });
 export const $hasWon = atom<boolean>(false);
 export const $visitedCells = atom<Coordinates[]>([{ x: 1, y: 1 }]);
 export const $solution = atom<Coordinates[]>([{ x: 1, y: 1 }]);
+
+function resetGame() {
+    $numberOfMoves.set(0);
+    $currentPosition.set({ x: 1, y: 1 });
+    $hasWon.set(false);
+    $visitedCells.set([{ x: 1, y: 1 }]);
+    $solution.set([{ x: 1, y: 1 }]);
+}
 
 function movePlayer({ x = 0, y = 0 }: Coordinates) {
     if ($hasWon.get()) return;
@@ -43,7 +52,21 @@ export function Player(props: Props) {
     const numberOfMoves = useStore($numberOfMoves);
     const hasWon = useStore($hasWon);
 
+    const router = useRouter();
+
+    if (hasWon) {
+        console.log('hasWon:', hasWon);
+        if (props.isComputer) {
+            new Promise((resolve) => setTimeout(resolve, 1000))
+                .then(() => window.location.assign(`/${props.mazeSize + 2}`));
+        } else {
+            window.location.assign(`/${props.mazeSize + 2}/play`);
+        }
+    }
+
     useEffect(() => {
+        resetGame();
+
         console.log(props.objects);
         $objectMap.set(props.objects);
 
