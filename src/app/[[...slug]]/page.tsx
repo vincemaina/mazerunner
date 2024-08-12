@@ -3,9 +3,12 @@ import { aldousBroderMaze } from "@/util/maze-generation/algorithms/aldous-brode
 
 export const dynamic = 'force-dynamic';
 
-export default function Page() {
+export default function Page({ params }: { params: { slug: string[] } }) {
 
-    const mazeSize = 49;
+    console.log(params);
+
+    let mazeSize = params.slug ? parseInt(params.slug[0]) : 63;
+    mazeSize % 2 === 0 && mazeSize++;
 
     const objects = aldousBroderMaze(mazeSize, mazeSize);
 
