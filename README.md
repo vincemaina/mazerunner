@@ -2,8 +2,8 @@
 
 # [Play the game](https://themazerunner.vercel.app)
 
-- [Click here](https://themazerunner.vercel.app/maze/10/dfs) to solve the maze yourself
-- Or [click here](https://themazerunner.vercel.app/maze/10/play) to solve the maze automatically using depth-first search
+- [Click here](https://themazerunner.vercel.app/maze/10/play) to solve the maze yourself
+- Or [click here](https://themazerunner.vercel.app/maze/10/dfs) to solve the maze automatically using depth-first search
 
 # Project rundown
 
