@@ -12,6 +12,11 @@ export default function Page({ params }: { params: { slug: string[] } }) {
 
     const objects = aldousBroderMaze(mazeSize, mazeSize);
 
+    let playedByComputer = true;
+    if (params.slug && params.slug[1] == 'play') {
+        playedByComputer = false;
+    }
+
     return (
         <div className="flex flex-col gap-2 items-center">
             <Maze
@@ -19,7 +24,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
                 width={550}
                 objects={objects}
                 isPlayable
-                isComputer
+                isComputer={playedByComputer}
             />
         </div>
     )
